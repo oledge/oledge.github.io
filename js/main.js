@@ -88,3 +88,31 @@ fetch(formUrl, {
     formMessage.textContent = "Network error. Please try again.";
   });
 });
+
+// ----- 5. Full image viewer -----
+var lightbox = document.getElementById("lightbox");
+var lightboxImg = document.getElementById("lightboxImg");
+var lightboxDownload = document.getElementById("lightboxDownload");
+var imageButtons = document.querySelectorAll("button.project-image");
+
+// Show the big version of the image that was clicked
+function openLightbox(event) {
+  var button = event.currentTarget;
+  var smallImage = button.querySelector("img");
+  lightboxImg.src = button.getAttribute("data-full");
+  lightboxDownload.href = button.getAttribute("data-full");  // download the same big image
+  lightboxImg.alt = smallImage.alt;
+  lightbox.showModal();
+}
+
+for (var j = 0; j < imageButtons.length; j++) {
+  imageButtons[j].addEventListener("click", openLightbox);
+}
+
+// Click anywhere to close, except on the download button
+lightbox.addEventListener("click", function (event) {
+  if (event.target.id === "lightboxDownload") {
+    return;
+  }
+  lightbox.close();
+});
