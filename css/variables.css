@@ -1,0 +1,17 @@
+/* Change the theme here. Everything else uses these values. */
+:root {
+  /* Colors */
+  --color-black: #121212;   /* page background */
+  --color-gray: #1C1C1E;    /* cards and alternate sections */
+  --color-white: #F5F5F7;   /* text, buttons, accent */
+  --color-muted: rgba(245, 245, 247, 0.72);  /* body text */
+  --color-border: rgba(245, 245, 247, 0.12); /* thin outlines */
+
+  /* Font */
+  --font-main: "Rajdhani", sans-serif;
+
+  /* Spacing and shape */
+  --radius: 12px;
+  --section-space: 64px;  /* bigger on desktop, see style.css */
+  --nav-height: 64px;
+}

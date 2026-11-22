@@ -1,0 +1,288 @@
+/* ---------- Basics ---------- */
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;                 /* smooth jump to sections */
+  scroll-padding-top: var(--nav-height);   /* stops the sticky nav covering titles */
+}
+
+body {
+  margin: 0;
+  background: var(--color-black);
+  color: var(--color-white);
+  font-family: var(--font-main);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+a { color: var(--color-white); text-decoration: none; }
+ul { list-style: none; margin: 0; padding: 0; }
+
+h1, h2, h3 { margin: 0; line-height: 1.1; font-weight: 700; }
+h1 { font-size: 44px; }
+h2 { font-size: 32px; margin-bottom: 32px; }
+h3 { font-size: 22px; font-weight: 600; margin-bottom: 12px; }
+
+/* Visible outline when using the keyboard */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 3px;
+}
+
+/* Keeps content from stretching too wide */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Small uppercase text above titles */
+.label {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* ---------- Navigation (sticky) ---------- */
+.site-header {
+  position: sticky;   /* follows you as you scroll */
+  top: 0;
+  z-index: 100;
+  background: var(--color-black);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav {
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo { font-size: 28px; font-weight: 700; }
+
+/* Menu button (phones only) */
+.nav-toggle {
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-white);
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* On phones the links are hidden until the button is pressed */
+.nav-links {
+  display: none;
+  position: absolute;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  background: var(--color-gray);
+  border-bottom: 1px solid var(--color-border);
+  padding: 8px 20px 16px;
+}
+.nav-links.open { display: block; }
+.nav-links a { display: block; padding: 12px 0; font-weight: 600; }
+
+/* Link of the section you are currently reading */
+.nav-links a.active { text-decoration: underline; text-underline-offset: 6px; }
+
+/* ---------- Buttons ---------- */
+.button-row { display: flex; flex-wrap: wrap; gap: 16px; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 8px;
+  border: 1px solid var(--color-white);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+.btn:hover { transform: translateY(-2px); }
+
+.btn-primary { background: var(--color-white); color: var(--color-black); }
+.btn-outline { background: transparent; color: var(--color-white); }
+.btn-outline:hover { background: var(--color-gray); }
+
+/* ---------- Hero ---------- */
+.hero {
+  display: flex;
+  flex-direction: column-reverse;  /* photo on top for phones */
+  align-items: flex-start;
+  gap: 32px;
+  padding-top: 48px;
+  padding-bottom: 64px;
+}
+.hero-text { display: flex; flex-direction: column; gap: 20px; }
+.hero-intro { margin: 0; font-size: 20px; color: var(--color-muted); }
+
+.hero-photo {
+  width: 160px;
+  height: 160px;
+  border-radius: 999px;
+  background: var(--color-gray);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-muted);
+  overflow: hidden;
+}
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- Sections ---------- */
+.section { padding: var(--section-space) 0; }
+.section-gray { background: var(--color-gray); }
+.section-text { margin: 0 0 32px; max-width: 700px; color: var(--color-muted); }
+
+/* One column on phones. More columns on bigger screens. */
+.grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+
+.info-box {
+  background: var(--color-black);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.info-text { margin: 0; font-size: 20px; font-weight: 600; }
+
+/* ---------- Cards and tags ---------- */
+.card {
+  background: var(--color-gray);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.card:hover { transform: translateY(-4px); border-color: rgba(245, 245, 247, 0.4); }
+
+/* Cards on a gray section need the dark color to stand out */
+.section-gray .card { background: var(--color-black); }
+
+.tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tags li {
+  background: var(--color-black);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.card .tags li { background: var(--color-black); }
+.section-gray .card .tags li { background: var(--color-gray); }
+
+/* ---------- Project cards ---------- */
+.project-card { padding: 0; overflow: hidden; }
+.project-image {
+  aspect-ratio: 16 / 9;
+  background: var(--color-gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+.project-image img { width: 100%; height: 100%; object-fit: cover; }
+.project-body { padding: 24px; }
+.project-body p { margin: 0 0 16px; color: var(--color-muted); }
+.project-body .tags { margin-bottom: 16px; }
+.project-links { display: flex; gap: 24px; font-weight: 600; }
+.project-links a:hover { text-decoration: underline; }
+
+/* ---------- Contact ---------- */
+.contact-layout { display: grid; grid-template-columns: 1fr; gap: 32px; }
+.contact-info { display: flex; flex-direction: column; gap: 8px; }
+.email-link { font-size: 20px; font-weight: 600; }
+
+.contact-form { display: flex; flex-direction: column; gap: 8px; }
+.contact-form label { font-weight: 600; margin-top: 8px; }
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  background: var(--color-black);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  color: var(--color-white);
+  font-family: inherit;
+  font-size: 17px;
+}
+.contact-form input { height: 52px; }
+.contact-form textarea { resize: vertical; }
+.contact-form .btn { width: 100%; margin-top: 16px; }
+
+.form-message { margin: 8px 0 0; min-height: 24px; font-weight: 600; }
+
+/* ---------- Footer ---------- */
+.site-footer { border-top: 1px solid var(--color-border); padding: 24px 0; font-size: 15px; color: var(--color-muted); }
+.footer-row { display: flex; justify-content: space-between; align-items: center; }
+.footer-row p { margin: 0; }
+.footer-row a { font-weight: 600; }
+
+/* ---------- Tablet (768px and up) ---------- */
+@media (min-width: 768px) {
+  :root { --section-space: 96px; --nav-height: 72px; }
+  .container { padding: 0 40px; }
+  h1 { font-size: 64px; }
+  h2 { font-size: 40px; }
+  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------- Desktop (1024px and up) ---------- */
+@media (min-width: 1024px) {
+  .container { padding: 0; }
+  h1 { font-size: 80px; }
+  h2 { font-size: 44px; }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+  /* Menu button disappears, links show in a row */
+  .nav-toggle { display: none; }
+  .nav-links {
+    display: flex;
+    position: static;
+    background: none;
+    border: 0;
+    padding: 0;
+    gap: 32px;
+  }
+  .nav-links a { padding: 4px 0; }
+
+  /* Text left, photo right */
+  .hero {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 600px;
+  }
+  .hero-text { max-width: 640px; }
+  .hero-photo { width: 360px; height: 450px; border-radius: var(--radius); flex: none; }
+
+  .contact-layout { grid-template-columns: 5fr 7fr; gap: 64px; }
+}
+
+/* Turns off animations for people who ask for less motion */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}
