@@ -89,19 +89,57 @@ fetch(formUrl, {
   });
 });
 
-// ----- 5. Full image viewer -----
+// ----- 5. Full image viewer with Next / Previous -----
 var lightbox = document.getElementById("lightbox");
 var lightboxImg = document.getElementById("lightboxImg");
 var lightboxDownload = document.getElementById("lightboxDownload");
+var lightboxCount = document.getElementById("lightboxCount");
+var prevButton = document.getElementById("prevButton");
+var nextButton = document.getElementById("nextButton");
 var imageButtons = document.querySelectorAll("button.project-image");
 
-// Show the big version of the image that was clicked
+var currentImages = [];  // the photos of the project you clicked
+var currentIndex = 0;    // which photo is showing now
+
+// Show the photo at currentIndex
+function showImage() {
+  var path = currentImages[currentIndex];
+  lightboxImg.src = path;
+  lightboxDownload.href = path;
+  lightboxCount.textContent = (currentIndex + 1) + " / " + currentImages.length;
+
+  // Hide the arrows and counter when there is only one photo
+  var hasMany = currentImages.length > 1;
+  prevButton.hidden = !hasMany;
+  nextButton.hidden = !hasMany;
+  lightboxCount.hidden = !hasMany;
+}
+
+function nextImage() {
+  currentIndex = (currentIndex + 1) % currentImages.length;
+  showImage();
+}
+
+function previousImage() {
+  currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+  showImage();
+}
+
 function openLightbox(event) {
   var button = event.currentTarget;
-  var smallImage = button.querySelector("img");
-  lightboxImg.src = button.getAttribute("data-full");
-  lightboxDownload.href = button.getAttribute("data-full");  // download the same big image
-  lightboxImg.alt = smallImage.alt;
+  var list = button.getAttribute("data-images");
+
+  if (list) {
+    // Many photos: split the comma list into separate paths
+    currentImages = list.split(",").map(function (item) { return item.trim(); });
+  } else {
+    // One photo
+    currentImages = [button.getAttribute("data-full")];
+  }
+
+  currentIndex = 0;
+  lightboxImg.alt = button.querySelector("img").alt;
+  showImage();
   lightbox.showModal();
 }
 
@@ -109,10 +147,21 @@ for (var j = 0; j < imageButtons.length; j++) {
   imageButtons[j].addEventListener("click", openLightbox);
 }
 
-// Click anywhere to close, except on the download button
+nextButton.addEventListener("click", nextImage);
+prevButton.addEventListener("click", previousImage);
+
+// Close with the ✕ button or by clicking the dark background
 lightbox.addEventListener("click", function (event) {
-  if (event.target.id === "lightboxDownload") {
-    return;
+  var clickedBackground = event.target === lightbox;
+  var clickedClose = event.target.classList.contains("lightbox-close");
+  if (clickedBackground || clickedClose) {
+    lightbox.close();
   }
-  lightbox.close();
+});
+
+// Keyboard: left and right arrow keys change photo (Esc closes automatically)
+document.addEventListener("keydown", function (event) {
+  if (!lightbox.open) { return; }
+  if (event.key === "ArrowRight") { nextImage(); }
+  if (event.key === "ArrowLeft") { previousImage(); }
 });
