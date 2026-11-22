@@ -202,8 +202,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-size: 14px;
   font-weight: 600;
   color: var(--color-muted);
+  position: relative;
+  overflow: hidden;
 }
-.project-image img { width: 100%; height: 100%; object-fit: cover; }
+.project-image img {
+  position: absolute;   /* the image can no longer stretch the card */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;    /* fills the box and crops the edges */
+}
 .project-body { padding: 24px; }
 .project-body p { margin: 0 0 16px; color: var(--color-muted); }
 .project-body .tags { margin-bottom: 16px; }
@@ -246,7 +255,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .container { padding: 0 40px; }
   h1 { font-size: 64px; }
   h2 { font-size: 40px; }
-  .grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* ---------- Desktop (1024px and up) ---------- */
@@ -254,7 +263,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .container { padding: 0; }
   h1 { font-size: 80px; }
   h2 { font-size: 44px; }
-  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr));  }
 
   /* Menu button disappears, links show in a row */
   .nav-toggle { display: none; }
@@ -279,6 +288,35 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .hero-photo { width: 360px; height: 450px; border-radius: var(--radius); flex: none; }
 
   .contact-layout { grid-template-columns: 5fr 7fr; gap: 64px; }
+}
+
+/* ---------- Full image viewer ---------- */
+.project-image { width: 100%; border: 0; padding: 0; font-family: inherit; color: inherit; }
+button.project-image { cursor: zoom-in; }
+
+.lightbox-download { margin-top: 12px; }
+.lightbox { border: 0; padding: 0; background: transparent; overflow: visible; }
+.lightbox::backdrop { background: rgba(0, 0, 0, 0.85); }  /* dark background behind the photo */
+
+.lightbox img {
+  display: block;
+  max-width: 95vw;    /* never bigger than the screen */
+  max-height: 90vh;
+  border-radius: var(--radius);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 44px;
+  height: 44px;
+  background: var(--color-gray);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--color-white);
+  font-size: 20px;
+  cursor: pointer;
 }
 
 /* Turns off animations for people who ask for less motion */
