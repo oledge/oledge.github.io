@@ -121,27 +121,29 @@
         <div class="grid grid-3">
           <!-- Copy this whole <article> to add another project -->
           <article class="card project-card">
-            <div class="project-image">[PROJECT SCREENSHOT]</div>
+            <button class="project-image" type="button" data-full="photo/BADS.ggV2.png"> 
+              <img src="photo/BADS.ggV2.png" alt="Bads.gg">
+            </button>
             <div class="project-body">
-              <h3>Inventory Management System</h3>
-              <p>Simple inventory tracking for small business owners.</p>
-              <ul class="tags"><li>Java</li><li>MySQL</li><li>NetBeans</li><li>XAMPP</li></ul>
+              <h3>Bads.gg Website Design</h3>
+              <p>A simple website design for one of my major subjects</p>
+              <ul class="tags"><li>Figma</li></ul>
               <div class="project-links">
                 <a href="#">Live [add link]</a>
-                <a href="#">GitHub [add link]</a>
               </div>
             </div>
           </article>
 
           <article class="card project-card">
-            <div class="project-image">[PROJECT SCREENSHOT]</div>
+            <button class="project-image" type="button" data-full="photo/TechDay.png">
+              <img src="photo/TechDay.png" alt="CCS Tech Day 2026 poster">
+            </button>
             <div class="project-body">
-              <h3>[Project title]</h3>
-              <p>[Short description]</p>
-              <ul class="tags"><li>[Tech]</li><li>[Tech]</li></ul>
+              <h3>Mini-Event Design Challenge</h3>
+              <p>A simple Event Idea design</p>
+              <ul class="tags"><li>Figma</li></ul>
               <div class="project-links">
                 <a href="#">Live [add link]</a>
-                <a href="#">GitHub [add link]</a>
               </div>
             </div>
           </article>
@@ -187,6 +189,13 @@
       <a href="#home">Back to top</a>
     </div>
   </footer>
+
+  <!-- Full image viewer -->
+  <dialog class="lightbox" id="lightbox" aria-label="Full size image">
+    <button type="button" class="lightbox-close" aria-label="Close image">✕</button>
+      <img id="lightboxImg" src="" alt="">
+        <a id="lightboxDownload" class="btn btn-primary lightbox-download" href="#" download>Download image</a>
+  </dialog>
 
   <script src="js/main.js"></script>
 </body>
